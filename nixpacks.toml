@@ -1,0 +1,12 @@
+[variables]
+NODE_ENV = "production"
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
+
+[phases.setup]
+nixPkgs = ["nodejs_18", "chromium", "nss", "freetype", "harfbuzz"]
+
+[phases.install]
+cmds = ["npm install --production --legacy-peer-deps"]
+
+[start]
+cmd = "npm start"
