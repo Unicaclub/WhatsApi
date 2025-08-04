@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   unicaclub-whatsapi:
@@ -6,14 +6,31 @@ services:
     restart: unless-stopped
     build:
       context: .
+      dockerfile: Dockerfile
     volumes:
-      - ./config.ts:/usr/src/whatsapi-server/config.ts
-      - ./unicaclub_tokens:/usr/src/whatsapi-server/tokens
+      - ./src/config.ts:/app/src/config.ts:ro
+      - unicaclub_tokens:/app/tokens
+      - unicaclub_uploads:/app/uploads
+      - unicaclub_userdata:/app/userDataDir
     ports:
-      - '21466:21466'
+      - '${PORT:-21466}:${PORT:-21466}'
     environment:
       - NODE_ENV=production
       - API_NAME=UnicaClub-WhatsAPI
+      - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+      - PORT=${PORT:-21466}
+    healthcheck:
+      test: ["CMD", "node", "healthcheck.js"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
 volumes:
-  unicaclub_tokens: {}
+  unicaclub_tokens:
+    driver: local
+  unicaclub_uploads:
+    driver: local
+  unicaclub_userdata:
+    driver: local
