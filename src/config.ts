@@ -1,9 +1,9 @@
 import { ServerOptions } from './types/ServerOptions';
 
 export default {
-  secretKey: 'Unicaclub2024',
-  host: 'http://localhost',
-  port: '21466',
+  secretKey: process.env.SECRET_KEY || 'Mestre888',
+  host: process.env.HOST || 'http://localhost',
+  port: process.env.PORT || '21466',
   deviceName: 'UnicaClub-WhatsAPI',
   poweredBy: 'UnicaClub-WhatsAPI-Server',
   startAllSession: true,

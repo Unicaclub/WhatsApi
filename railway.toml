@@ -11,6 +11,6 @@ restartPolicyMaxRetries = 10
 [environment]
 NODE_ENV = "production"
 PORT = "21466"
+SECRET_KEY = "Mestre888"
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
 PUPPETEER_EXECUTABLE_PATH = "/nix/store/*/bin/chromium"
-SECRET_KEY = "Mestre888"
