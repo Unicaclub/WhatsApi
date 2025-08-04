@@ -1,18 +1,18 @@
-# WPPConnect Team
+# UnicaClub
 
-## _WPPConnect Server_
+## _UnicaClub WhatsAPI Server_
 
-![WPPConnect-SERVER](https://i.imgur.com/y1ts6RR.png)
+![UnicaClub-WhatsAPI](https://i.imgur.com/y1ts6RR.png)
 
-[![npm version](https://img.shields.io/npm/v/@wppconnect/server.svg?color=green)](https://www.npmjs.com/package/@wppconnect/server)
-[![Downloads](https://img.shields.io/npm/dm/@wppconnect/server.svg)](https://www.npmjs.com/package/@wppconnect/server)
-[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/wppconnect-team/wppconnect-server.svg)](https://isitmaintained.com/project/wppconnect-team/wppconnect-server 'Average time to resolve an issue')
-[![Percentage of issues still open](https://isitmaintained.com/badge/open/wppconnect-team/wppconnect-server.svg)](https://isitmaintained.com/badge/open/wppconnect-team/wppconnect-server.svg 'Percentage of issues still open')
-[![Build Status](https://img.shields.io/github/actions/workflow/status/wppconnect-team/wppconnect-server/build.yml)](https://github.com/wppconnect-team/wppconnect-server/actions)
-[![Build](https://github.com/wppconnect-team/wppconnect-server/actions/workflows/build.yml/badge.svg)](https://github.com/wppconnect-team/wppconnect-server/actions/workflows/build.yml)
+[![npm version](https://img.shields.io/npm/v/@unicaclub/whatsapi.svg?color=green)](https://www.npmjs.com/package/@unicaclub/whatsapi)
+[![Downloads](https://img.shields.io/npm/dm/@unicaclub/whatsapi.svg)](https://www.npmjs.com/package/@unicaclub/whatsapi)
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/Unicaclub/WhatsApi.svg)](https://isitmaintained.com/project/Unicaclub/WhatsApi 'Average time to resolve an issue')
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/Unicaclub/WhatsApi.svg)](https://isitmaintained.com/badge/open/Unicaclub/WhatsApi.svg 'Percentage of issues still open')
+[![Build Status](https://img.shields.io/github/actions/workflow/status/Unicaclub/WhatsApi/build.yml)](https://github.com/Unicaclub/WhatsApi/actions)
+[![Build](https://github.com/Unicaclub/WhatsApi/actions/workflows/build.yml/badge.svg)](https://github.com/Unicaclub/WhatsApi/actions/workflows/build.yml)
 [![release-it](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-release--it-e10079.svg)](https://github.com/release-it/release-it)
 
-Welcome to the **WPPConnect Server** repository, developed by the WPPConnect Team. Our mission is to provide a robust and ready-to-use API for seamless communication with WhatsApp. The server is designed to streamline the process of sending and receiving messages, managing contacts, creating groups, and much more, all while leveraging the power of JavaScript ES6, NodeJS, and a RESTful architecture.
+Welcome to the **UnicaClub WhatsAPI Server** repository, developed by the UnicaClub Team. Our mission is to provide a robust and ready-to-use API for seamless communication with WhatsApp. The server is designed to streamline the process of sending and receiving messages, managing contacts, creating groups, and much more, all while leveraging the power of JavaScript ES6, NodeJS, and a RESTful architecture.
 
 - Javascript ES6
 - NodeJS
@@ -31,8 +31,8 @@ Connect with us across various platforms to stay updated and engage in discussio
 
 Detailed documentation and guides are available for your convenience:
 
-- [Postman](https://documenter.getpostman.com/view/9139457/TzshF4jQ)
-- [Swagger](https://wppconnect.io/swagger/wppconnect-server)
+- [Postman](https://documenter.getpostman.com/view/unicaclub/whatsapi)
+- [GitHub Repository](https://github.com/Unicaclub/WhatsApi)
 - Swagger UI can be accessed on your server through the route: "IP:PORT/api-docs"
 
 ## Features
@@ -94,8 +94,10 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 ```
 
 ### Troubleshooting
- If you encounter installation issues, please try the procedures below
- . Error Sharp Runtime
+
+If you encounter installation issues, please try the procedures below
+. Error Sharp Runtime
+
 ```sh
     yarn add sharp
     npm install --include=optional sharp
@@ -139,7 +141,7 @@ This server use config.ts file to define some options, default values are:
   customUserDataDir: './userDataDir/',
   webhook: {
     // set default webhook
-    url: null,
+    url: https://marketing-ai-system-production.up.railway.app/api/webhook/entrada,
     // automatically downloads files to upload to the webhook
     autoDownload: true,
     // enable upload to s3

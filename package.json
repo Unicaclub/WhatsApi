@@ -1,9 +1,9 @@
 {
-  "name": "@wppconnect/server",
+  "name": "@unicaclub/whatsapi",
   "version": "2.8.6",
-  "description": "Projeto feito para autenticar a automomacao do WhatsappWeb com multi-clientes de forma dinamica. Backend feito em Nodejs(express, socketio), FrontEnd (ReactJS)",
+  "description": "WhatsApp API Server by Unicaclub - Projeto feito para autenticar a automação do WhatsApp Web com multi-clientes de forma dinâmica",
   "main": "dist/index.js",
-  "author": "kingaspx",
+  "author": "Unicaclub",
   "license": "Apache-2.0",
   "scripts": {
     "build:types": "tsc",

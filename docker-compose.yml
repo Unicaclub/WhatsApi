@@ -1,16 +1,19 @@
-version: "3"
+version: '3'
 
 services:
-  wppconnect:
-    container_name: wpp-server
+  unicaclub-whatsapi:
+    container_name: unicaclub-whatsapi-server
     restart: unless-stopped
     build:
       context: .
     volumes:
-      - ./config.ts:/usr/src/wpp-server/config.ts
-      - ./wppconnect_tokens:/usr/src/wpp-server/tokens
+      - ./config.ts:/usr/src/whatsapi-server/config.ts
+      - ./unicaclub_tokens:/usr/src/whatsapi-server/tokens
     ports:
-      - "21465:21465"
+      - '21466:21466'
+    environment:
+      - NODE_ENV=production
+      - API_NAME=UnicaClub-WhatsAPI
 
 volumes:
-  wppconnect_tokens: {}      
+  unicaclub_tokens: {}

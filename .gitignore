@@ -23,3 +23,5 @@ userDataDir
 backupFolder
 tokens/*
 wppconnect_tokens/*
+unicaclub_tokens/*
+*.log
