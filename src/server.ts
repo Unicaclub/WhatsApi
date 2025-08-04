@@ -13,7 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+// Load environment variables first
+require('dotenv').config();
+
+console.log('🔧 Environment variables loaded');
+console.log('📦 NODE_ENV:', process.env.NODE_ENV);
+console.log('🔌 PORT:', process.env.PORT);
+console.log('🔑 SECRET_KEY:', process.env.SECRET_KEY ? 'configured' : 'not configured');
+
 import config from './config';
 import { initServer } from './index';
 
+console.log('🚀 Starting server with config...');
 initServer(config);

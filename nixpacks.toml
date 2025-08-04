@@ -7,7 +7,7 @@ PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
 nixPkgs = ["nodejs_18", "chromium"]
 
 [phases.install]
-cmds = ["npm install --production --legacy-peer-deps --no-optional"]
+cmds = ["npm install --production --legacy-peer-deps --ignore-optional"]
 
 [phases.build]
 cmds = ["npm run build"]

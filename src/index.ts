@@ -48,11 +48,17 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
   routes: Router;
   logger: Logger;
 } {
+  console.log('🎯 initServer called');
+  console.log('⚙️ serverOptions received:', serverOptions ? 'yes' : 'no');
+  
   if (typeof serverOptions !== 'object') {
     serverOptions = {};
   }
 
   serverOptions = mergeDeep({}, config, serverOptions);
+  console.log('🔧 Final serverOptions port:', serverOptions.port);
+  console.log('🔑 Final serverOptions secretKey:', serverOptions.secretKey ? 'configured' : 'not configured');
+  
   defaultLogger.level = serverOptions?.log?.level
     ? serverOptions.log.level
     : 'silly';
@@ -103,19 +109,55 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
 
   // Add health check routes
   app.get('/', (req, res) => {
+    console.log('📍 Root route accessed');
     res.json({
       status: 'ok',
       message: 'UnicaClub WhatsAPI Server is running',
       version: version,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      routes: [
+        '/',
+        '/health',
+        '/api',
+        '/api-docs'
+      ]
     });
   });
 
   app.get('/health', (req, res) => {
+    console.log('🏥 Health check accessed');
     res.json({
       status: 'healthy',
       uptime: process.uptime(),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      memory: process.memoryUsage(),
+      environment: process.env.NODE_ENV
+    });
+  });
+
+  // Add a catch-all route for debugging
+  app.get('/test', (req, res) => {
+    console.log('🧪 Test route accessed');
+    res.json({
+      message: 'Test route is working!',
+      port: PORT,
+      env: process.env.NODE_ENV,
+      secretKey: serverOptions.secretKey ? 'configured' : 'not configured'
+    });
+  });
+
+  // Debug route to check environment variables
+  app.get('/debug', (req, res) => {
+    console.log('🐛 Debug route accessed');
+    res.json({
+      environment: process.env.NODE_ENV,
+      port: PORT,
+      processPort: process.env.PORT,
+      secretKey: process.env.SECRET_KEY ? 'configured' : 'not configured',
+      host: process.env.HOST || 'not set',
+      puppeteerSkip: process.env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD,
+      configPort: serverOptions.port,
+      configSecretKey: serverOptions.secretKey ? 'configured' : 'not configured'
     });
   });
 
@@ -138,6 +180,12 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
   });
 
   http.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server is running on port: ${PORT}`);
+    console.log(`🌐 Server is listening on 0.0.0.0:${PORT}`);
+    console.log(`📚 Visit http://localhost:${PORT}/api-docs for Swagger docs`);
+    console.log(`🔧 Environment: ${process.env.NODE_ENV}`);
+    console.log(`🔑 Secret Key configured: ${serverOptions.secretKey ? 'Yes' : 'No'}`);
+    
     logger.info(`Server is running on port: ${PORT}`);
     logger.info(`Server is listening on 0.0.0.0:${PORT}`);
     logger.info(
@@ -146,6 +194,9 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
     logger.info(`WPPConnect-Server version: ${version}`);
 
     if (serverOptions.startAllSession) startAllSessions(serverOptions, logger);
+  }).on('error', (err) => {
+    console.error('❌ Server failed to start:', err);
+    logger.error('Server failed to start:', err);
   });
 
   if (config.log.level === 'error' || config.log.level === 'warn') {

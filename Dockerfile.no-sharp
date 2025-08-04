@@ -1,0 +1,44 @@
+# Dockerfile sem Sharp para Railway
+FROM node:18-alpine
+
+# Install system dependencies
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    vips-dev \
+    && rm -rf /var/cache/apk/*
+
+# Set working directory
+WORKDIR /app
+
+# Set environment variables
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV NODE_ENV=production
+
+# Copy package files
+COPY package.json .npmrc ./
+
+# Install dependencies without sharp first
+RUN npm install --production --legacy-peer-deps --ignore-optional
+
+# Try to install sharp for Alpine Linux
+RUN npm install sharp --platform=linux --arch=x64 || \
+    npm install --platform=linux --libc=musl sharp || \
+    echo "Sharp installation failed, continuing without it"
+
+# Copy source code
+COPY . .
+
+# Build application
+RUN npm run build
+
+# Expose port
+EXPOSE 21466
+
+# Start application
+CMD ["node", "dist/server.js"]
