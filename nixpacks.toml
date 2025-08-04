@@ -1,18 +1,16 @@
 [variables]
 NODE_ENV = "production"
-PORT = "21466"
 SECRET_KEY = "Mestre888"
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
-PUPPETEER_EXECUTABLE_PATH = "/nix/store/*/bin/chromium"
 
 [phases.setup]
-nixPkgs = ["nodejs_18", "chromium", "nss", "freetype", "harfbuzz"]
+nixPkgs = ["nodejs_18", "chromium"]
 
 [phases.install]
-cmds = ["npm install --production --legacy-peer-deps"]
+cmds = ["npm install --production --legacy-peer-deps --no-optional"]
 
 [phases.build]
 cmds = ["npm run build"]
 
 [start]
-cmd = "npm start"
+cmd = "node dist/server.js"

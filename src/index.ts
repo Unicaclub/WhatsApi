@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+// Load environment variables
+require('dotenv').config();
+
 import { defaultLogger } from '@wppconnect-team/wppconnect';
 import cors from 'cors';
 import express, { Express, NextFunction, Router } from 'express';
@@ -57,7 +60,7 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
   setMaxListners(serverOptions as ServerOptions);
 
   const app = express();
-  const PORT = process.env.PORT || serverOptions.port;
+  const PORT = parseInt(String(process.env.PORT || serverOptions.port || '21466'));
 
   app.use(cors());
   app.use(express.json({ limit: '50mb' }));
@@ -98,6 +101,24 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
     next();
   });
 
+  // Add health check routes
+  app.get('/', (req, res) => {
+    res.json({
+      status: 'ok',
+      message: 'UnicaClub WhatsAPI Server is running',
+      version: version,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  app.get('/health', (req, res) => {
+    res.json({
+      status: 'healthy',
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString()
+    });
+  });
+
   app.use(routes);
 
   createFolders();
@@ -116,8 +137,9 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
     });
   });
 
-  http.listen(PORT, () => {
+  http.listen(PORT, '0.0.0.0', () => {
     logger.info(`Server is running on port: ${PORT}`);
+    logger.info(`Server is listening on 0.0.0.0:${PORT}`);
     logger.info(
       `\x1b[31m Visit ${serverOptions.host}:${PORT}/api-docs for Swagger docs`
     );
