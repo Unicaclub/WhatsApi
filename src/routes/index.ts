@@ -936,6 +936,56 @@ routes.post(
 
 routes.post('/api/:session/chatwoot', DeviceController.chatWoot);
 
+// Advanced Automation System Routes
+import * as AutomationController from '../controller/automationController';
+
+// Automation Management
+routes.post(
+  '/api/:session/automations',
+  verifyToken,
+  AutomationController.createAutomation
+);
+routes.get(
+  '/api/:session/automations',
+  verifyToken,
+  AutomationController.getAutomations
+);
+routes.put(
+  '/api/:session/automations/:automationId',
+  verifyToken,
+  AutomationController.updateAutomation
+);
+routes.delete(
+  '/api/:session/automations/:automationId',
+  verifyToken,
+  AutomationController.deleteAutomation
+);
+routes.post(
+  '/api/:session/automations/:automationId/toggle',
+  verifyToken,
+  AutomationController.toggleAutomation
+);
+routes.post(
+  '/api/:session/automations/:automationId/test',
+  verifyToken,
+  AutomationController.testAutomation
+);
+routes.get(
+  '/api/:session/automations/:automationId/analytics',
+  verifyToken,
+  AutomationController.getAutomationAnalytics
+);
+routes.get(
+  '/api/automation-templates',
+  AutomationController.getAutomationTemplates
+);
+
+// Webhook for automation triggers
+routes.post(
+  '/api/webhook/automation',
+  AutomationController.processIncomingMessage
+);
+
 // Api Doc
 routes.use('/api-docs', swaggerUi.serve as any);
 routes.get('/api-docs', swaggerUi.setup(swaggerDocument) as any);

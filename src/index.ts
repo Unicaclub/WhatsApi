@@ -43,6 +43,23 @@ import { createLogger } from './util/logger';
 
 export const logger = createLogger(config.log);
 
+// Initialize database connection on startup
+import { dbConnection } from './database/connection';
+
+// Initialize database when server starts
+async function initializeDatabase(): Promise<void> {
+  try {
+    await dbConnection.connect();
+    logger.info('🗄️ Database initialized successfully');
+  } catch (error) {
+    logger.error('❌ Failed to initialize database:', error);
+    // Don't crash the server, but log the error
+  }
+}
+
+// Call database initialization
+initializeDatabase();
+
 export function initServer(serverOptions: Partial<ServerOptions>): {
   app: Express;
   routes: Router;
