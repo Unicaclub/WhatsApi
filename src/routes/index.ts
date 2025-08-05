@@ -18,6 +18,9 @@ import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
 import uploadConfig from '../config/upload';
+import userRoutes from './userRoutes';
+import settingsRoutes from './settingsRoutes';
+import contactsRoutes from './contactsRoutes';
 import * as CatalogController from '../controller/catalogController';
 import * as CommunityController from '../controller/communityController';
 import * as DeviceController from '../controller/deviceController';
@@ -38,6 +41,12 @@ import swaggerDocument from '../swagger.json';
 
 const upload = multer(uploadConfig as any) as any;
 const routes: Router = Router();
+// Rotas REST de autenticação e perfil
+routes.use(userRoutes);
+// Rotas REST de settings
+routes.use(settingsRoutes);
+// Rotas REST de contatos e mensagens
+routes.use(contactsRoutes);
 
 // Generate Token
 routes.post('/api/:session/:secretkey/generate-token', encryptSession);
