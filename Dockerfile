@@ -17,8 +17,12 @@ WORKDIR /app
 
 # Set environment variables
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 ENV NODE_ENV=production
+
+
+# Corrige o executável chromium-browser para chromium
+RUN ln -sf /usr/bin/chromium /usr/bin/chromium-browser
 
 # Copy only package.json first
 COPY package.json ./
