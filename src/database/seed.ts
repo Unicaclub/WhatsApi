@@ -22,11 +22,13 @@ async function seedDatabase(): Promise<void> {
     await dbConnection.connect();
 
     // Create demo user
+    const demoPassword = await bcrypt.hash('demopassword', 14);
     const demoUser = await UserModel.findOrCreate({
       where: { email: 'demo@unicaclub.com' },
       defaults: {
         name: 'Demo User',
         email: 'demo@unicaclub.com',
+        password: demoPassword,
         plan_type: 'premium', // string, mas poderia ser enum futuramente
         api_key: uuidv4(),
         created_at: new Date(),
