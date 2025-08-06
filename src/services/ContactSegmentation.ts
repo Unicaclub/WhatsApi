@@ -3,7 +3,8 @@
  * Handles contact tagging, custom fields, and behavioral segmentation
  */
 
-import { logger } from '../index';
+import { createLogger } from '../util/logger';
+const logger = createLogger({ level: 'info', logger: ['console'] });
 import { Contact } from '../models';
 
 export interface SegmentationRule {
