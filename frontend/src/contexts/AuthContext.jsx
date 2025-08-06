@@ -46,13 +46,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('/api/login', { email, password });
+      const response = await api.post('/api/login', { email, password });
       const { token: newToken, user: userData } = response.data;
-      
       setToken(newToken);
       setUser(userData);
       localStorage.setItem('token', newToken);
-      
       return { success: true };
     } catch (error) {
       console.error('Erro no login:', error);
