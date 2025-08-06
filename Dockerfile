@@ -4,7 +4,7 @@ FROM node:18
 
 # Install Chrome dependencies (Debian/Ubuntu)
 RUN apt-get update && \
-    apt-get install -y chromium nss libfreetype6 libharfbuzz0b ca-certificates fonts-freefont-ttf && \
+    apt-get install -y chromium-browser nss libfreetype6 libharfbuzz0b ca-certificates fonts-freefont-ttf && \
     rm -rf /var/lib/apt/lists/*
 
 # Set working directory
