@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import api from '../lib/api';
 
 const AuthContext = createContext();
 
@@ -64,19 +65,17 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('/api/register', userData);
+      const response = await api.post('/api/register', userData);
       const { token: newToken, user: newUser } = response.data;
-      
       setToken(newToken);
       setUser(newUser);
       localStorage.setItem('token', newToken);
-      
       return { success: true };
     } catch (error) {
       console.error('Erro no cadastro:', error);
-      return { 
-        success: false, 
-        error: error.response?.data?.message || 'Erro ao fazer cadastro' 
+      return {
+        success: false,
+        error: error.response?.data?.message || 'Erro ao fazer cadastro'
       };
     }
   };
