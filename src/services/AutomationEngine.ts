@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { logger } from '../index';
+import { createLogger } from '../util/logger';
 import { QueueManager } from './QueueManager';
 import { TemplateEngine } from './TemplateEngine';
 import { AnalyticsService } from './AnalyticsService';
@@ -16,6 +16,8 @@ import {
   AutomationAction, 
   QueueJob 
 } from '../models';
+
+const logger = createLogger({ level: 'silly', logger: ['console', 'file'] });
 
 export class AutomationEngine extends EventEmitter {
   private queueManager: QueueManager;
