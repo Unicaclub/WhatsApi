@@ -2,9 +2,10 @@ import axios from 'axios';
 
 // Configuração base do axios
 const api = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' 
-    ? 'https://api.whatsapp.com' // URL de produção
-    : 'http://localhost:21466', // URL de desenvolvimento
+  baseURL:
+    process.env.NODE_ENV === 'production'
+      ? process.env.REACT_APP_API_URL || 'https://whatsapi-production-5412.up.railway.app'
+      : 'http://localhost:21466',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
