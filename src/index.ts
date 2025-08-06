@@ -85,7 +85,18 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
   const app = express();
   const PORT = parseInt(String(process.env.PORT || serverOptions.port || '21466'));
 
-  app.use(cors());
+  // Configure CORS for Railway deployment
+  const corsOptions = {
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'https://whatsapi-production-5e4e.up.railway.app', // Frontend Railway URL
+      'https://whatsapi-production-5412.up.railway.app'  // Backend Railway URL (for self-calls)
+    ],
+    credentials: true,
+    optionsSuccessStatus: 200
+  };
+  app.use(cors(corsOptions));
   app.use(express.json({ limit: '50mb' }));
   app.use(express.urlencoded({ limit: '50mb', extended: true }));
   app.use('/files', express.static('WhatsAppImages'));

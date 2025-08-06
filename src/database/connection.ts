@@ -14,42 +14,38 @@ class DatabaseConnection {
     const databaseUrl = process.env.DATABASE_URL;
     
     if (databaseUrl) {
-      // Production: Use DATABASE_URL
-      this.sequelize = new Sequelize(databaseUrl, {
-        dialect: 'postgres',
-        logging: (msg) => logger.debug(msg),
-        pool: {
-          max: 20,
-          min: 0,
-          acquire: 30000,
-          idle: 10000
-        },
-        dialectOptions: {
-          ssl: process.env.NODE_ENV === 'production' ? {
-            require: true,
-            rejectUnauthorized: false
-          } : false
-        }
-      });
+      // Check if it's SQLite URL
+      if (databaseUrl.startsWith('sqlite:')) {
+        this.sequelize = new Sequelize(databaseUrl, {
+          dialect: 'sqlite',
+          logging: process.env.NODE_ENV === 'development' ? console.log : false,
+          storage: databaseUrl.replace('sqlite:', '')
+        });
+      } else {
+        // PostgreSQL Production: Use DATABASE_URL
+        this.sequelize = new Sequelize(databaseUrl, {
+          dialect: 'postgres',
+          logging: process.env.NODE_ENV === 'development' ? false : false, // Disable logging in production
+          pool: {
+            max: 20,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+          },
+          dialectOptions: {
+            ssl: process.env.NODE_ENV === 'production' ? {
+              require: true,
+              rejectUnauthorized: false
+            } : false
+          }
+        });
+      }
     } else {
-      // Development: Use individual environment variables
+      // Development: Default to SQLite for simplicity
       this.sequelize = new Sequelize({
-        dialect: 'postgres',
-        host: process.env.DB_HOST || 'localhost',
-        port: parseInt(process.env.DB_PORT || '5432'),
-        database: process.env.DB_NAME || 'wppconnect_automation',
-        username: process.env.DB_USER || 'postgres',
-        password: process.env.DB_PASSWORD || '',
-        logging: process.env.NODE_ENV === 'development' ? (msg) => logger.debug(msg) : false,
-        pool: {
-          max: 20,
-          min: 0,
-          acquire: 30000,
-          idle: 10000
-        },
-        dialectOptions: {
-          ssl: false
-        }
+        dialect: 'sqlite',
+        storage: './database.sqlite',
+        logging: process.env.NODE_ENV === 'development' ? console.log : false
       });
     }
   }
