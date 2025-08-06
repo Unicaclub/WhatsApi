@@ -316,7 +316,7 @@ export class AnalyticsService extends EventEmitter {
       message_frequency: await this.getMessageFrequency(contactId),
       automation_triggers: await this.getAutomationTriggerCount(contactId),
       tags: contact.tags,
-      lifecycle_stage: lifecycleStage
+      lifecycle_stage: (lifecycleStage as 'new' | 'active' | 'engaged' | 'at_risk' | 'churned')
     };
   }
 

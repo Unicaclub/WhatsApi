@@ -8,7 +8,7 @@ import { logger } from '../index';
 import { Channel, Contact, Message } from '../models';
 
 export interface ChannelConfig {
-  type: 'whatsapp' | 'telegram' | 'instagram' | 'sms' | 'email';
+  type: 'whatsapp' | 'telegram' | 'instagram' | 'sms';
   name: string;
   config: {
     api_key?: string;

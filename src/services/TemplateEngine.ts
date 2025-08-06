@@ -130,13 +130,13 @@ export class TemplateEngine {
       if (template.content.variables) {
         for (const variable of template.content.variables) {
           const value = allVariables[variable.name];
+          // Só passa type, format, default_value se existirem
           const processedValue = this.processVariable(
-            value, 
-            variable.type, 
-            variable.format,
-            variable.default_value
+            value,
+            'type' in variable ? (variable as any).type : undefined,
+            'format' in variable ? (variable as any).format : undefined,
+            'default_value' in variable ? (variable as any).default_value : undefined
           );
-          
           // Replace {{variable_name}} with processed value
           const regex = new RegExp(`\\{\\{${variable.name}\\}\\}`, 'g');
           processedContent = processedContent.replace(regex, processedValue);

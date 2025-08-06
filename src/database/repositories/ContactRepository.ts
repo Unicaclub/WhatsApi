@@ -67,16 +67,19 @@ export class ContactRepository {
         where: {
           user_id: userId,
           phone,
-          channel
+          channel: channel as 'whatsapp' | 'telegram' | 'instagram' | 'sms'
         },
         defaults: {
           user_id: userId,
           phone,
-          channel: channel as any,
-          tags: [],
-          custom_fields: {},
-          status: 'active',
-          ...additionalData
+          channel: channel as 'whatsapp' | 'telegram' | 'instagram' | 'sms',
+          tags: additionalData?.tags || [],
+          custom_fields: additionalData?.custom_fields || {},
+          status: (additionalData?.status as 'active' | 'blocked' | 'inactive') || 'active',
+          name: additionalData?.name,
+          last_interaction: additionalData?.last_interaction || new Date(),
+          created_at: additionalData?.created_at || new Date(),
+          updated_at: additionalData?.updated_at || new Date()
         }
       });
 
@@ -385,7 +388,8 @@ export class ContactRepository {
           user_id: userId,
           [Op.or]: [
             { last_interaction: { [Op.lt]: cutoffDate } },
-            { last_interaction: { [Op.is]: null } }
+            // @ts-ignore: Sequelize aceita null para [Op.is]
+            { last_interaction: { [Op.is]: null as any } }
           ]
         },
         order: [['last_interaction', 'ASC']]

@@ -38,7 +38,6 @@ export class QueueManager extends EventEmitter {
       'send_message',
       'automation_action', 
       'campaign_message',
-      'webhook_call',
       'delayed_action'
     ];
 
@@ -156,9 +155,7 @@ export class QueueManager extends EventEmitter {
         case 'campaign_message':
           await this.processCampaignMessageJob(job);
           break;
-        case 'webhook_call':
-          await this.processWebhookJob(job);
-          break;
+        // 'webhook_call' removido pois não é permitido pelo modelo
         default:
           throw new Error(`Unknown job type: ${job.job_type}`);
       }

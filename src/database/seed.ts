@@ -27,8 +27,10 @@ async function seedDatabase(): Promise<void> {
       defaults: {
         name: 'Demo User',
         email: 'demo@unicaclub.com',
-        plan_type: 'premium',
-        api_key: uuidv4()
+        plan_type: 'premium', // string, mas poderia ser enum futuramente
+        api_key: uuidv4(),
+        created_at: new Date(),
+        updated_at: new Date()
       }
     });
 
@@ -43,8 +45,11 @@ async function seedDatabase(): Promise<void> {
         name: 'João Silva',
         tags: ['cliente', 'vip'],
         custom_fields: { cidade: 'São Paulo', idade: 35 },
-        channel: 'whatsapp' as const,
-        status: 'active' as const
+        channel: 'whatsapp',
+        status: 'active',
+        last_interaction: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         user_id: userId,
@@ -52,8 +57,11 @@ async function seedDatabase(): Promise<void> {
         name: 'Maria Santos',
         tags: ['lead', 'interessado'],
         custom_fields: { cidade: 'Rio de Janeiro', idade: 28 },
-        channel: 'whatsapp' as const,
-        status: 'active' as const
+        channel: 'whatsapp',
+        status: 'active',
+        last_interaction: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         user_id: userId,
@@ -61,8 +69,11 @@ async function seedDatabase(): Promise<void> {
         name: 'Pedro Costa',
         tags: ['cliente'],
         custom_fields: { cidade: 'Belo Horizonte', idade: 42 },
-        channel: 'telegram' as const,
-        status: 'active' as const
+        channel: 'telegram',
+        status: 'active',
+        last_interaction: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ];
 
@@ -73,7 +84,18 @@ async function seedDatabase(): Promise<void> {
           phone: contactData.phone, 
           channel: contactData.channel 
         },
-         defaults: { ...contactData, last_interaction: new Date(), created_at: new Date(), updated_at: new Date() }
+        defaults: {
+          user_id: contactData.user_id,
+          phone: contactData.phone,
+          name: contactData.name,
+          tags: contactData.tags,
+          custom_fields: contactData.custom_fields,
+          last_interaction: contactData.last_interaction,
+          channel: contactData.channel as 'whatsapp' | 'telegram' | 'instagram' | 'sms',
+          status: contactData.status as 'active' | 'blocked' | 'inactive',
+          created_at: contactData.created_at,
+          updated_at: contactData.updated_at
+        }
       });
     }
 
@@ -84,24 +106,26 @@ async function seedDatabase(): Promise<void> {
       {
         user_id: userId,
         name: 'Boas-vindas',
-        category: 'utility' as const,
+        category: 'utility' as 'utility',
         language: 'pt_BR',
-        status: 'approved' as const,
-        template_type: 'text' as const,
+        status: 'approved' as 'approved',
+        template_type: 'text' as 'text',
         content: {
           text: 'Olá {{name}}! 👋\n\nSeja bem-vindo(a) à nossa empresa!\n\nEstamos aqui para ajudá-lo com tudo o que precisar.',
           variables: [
             { name: 'name', example: 'João' }
           ]
-        }
+        },
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         user_id: userId,
         name: 'Confirmação de Pedido',
-        category: 'utility' as const,
+        category: 'utility' as 'utility',
         language: 'pt_BR',
-        status: 'approved' as const,
-        template_type: 'text' as const,
+        status: 'approved' as 'approved',
+        template_type: 'text' as 'text',
         content: {
           text: 'Olá {{name}}! 📦\n\nSeu pedido #{{order_id}} foi confirmado com sucesso!\n\n💰 Valor: {{total_amount}}\n📅 Previsão de entrega: {{delivery_date}}\n\nObrigado pela sua preferência!',
           variables: [
@@ -110,27 +134,31 @@ async function seedDatabase(): Promise<void> {
             { name: 'total_amount', example: 'R$ 150,00' },
             { name: 'delivery_date', example: '25/12/2024' }
           ]
-        }
+        },
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         user_id: userId,
         name: 'Promoção Especial',
-        category: 'marketing' as const,
+        category: 'marketing' as 'marketing',
         language: 'pt_BR',
-        status: 'approved' as const,
-        template_type: 'interactive' as const,
+        status: 'approved' as 'approved',
+        template_type: 'interactive' as 'interactive',
         content: {
           text: '🎉 OFERTA ESPECIAL para você, {{name}}!\n\n{{discount_percentage}}% OFF em toda a loja!\n\nVálido até {{expiry_date}}',
           buttons: [
-            { type: 'url', text: 'Ver Ofertas', url: 'https://loja.exemplo.com' },
-            { type: 'quick_reply', text: 'Quero saber mais', payload: 'WANT_MORE_INFO' }
+            { type: 'url' as 'url', text: 'Ver Ofertas', url: 'https://loja.exemplo.com' },
+            { type: 'quick_reply' as 'quick_reply', text: 'Quero saber mais', payload: 'WANT_MORE_INFO' }
           ],
           variables: [
             { name: 'name', example: 'João' },
             { name: 'discount_percentage', example: '20' },
             { name: 'expiry_date', example: '31/12/2024' }
           ]
-        }
+        },
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ];
 
@@ -147,7 +175,7 @@ async function seedDatabase(): Promise<void> {
     logger.info('📝 Demo templates created/updated');
 
     // Create demo automations
-    const demoAutomations = [
+const demoAutomations = [
       {
         user_id: userId,
         name: 'Boas-vindas Automática',
@@ -162,7 +190,7 @@ async function seedDatabase(): Promise<void> {
             type: 'send_message' as const,
             config: {
               message: {
-                type: 'text',
+                type: 'text' as 'text',
                 content: 'Olá {{name}}! 👋\n\nSeja bem-vindo(a) à nossa empresa!\n\nComo posso ajudá-lo hoje?'
               }
             }
@@ -191,7 +219,7 @@ async function seedDatabase(): Promise<void> {
             type: 'send_message' as const,
             config: {
               message: {
-                type: 'text',
+                type: 'text' as 'text',
                 content: 'Ótimo! Vou enviar nossa tabela de preços para você, {{name}}! 📋'
               }
             }
@@ -205,11 +233,11 @@ async function seedDatabase(): Promise<void> {
           },
           {
             id: '3',
-            type: 'delay' as const,
+            type: 'delay' as 'delay',
             config: {
               delay: {
                 duration: 30,
-                unit: 'minutes'
+                unit: 'minutes' as 'minutes'
               }
             },
             next_action_id: '4'
@@ -219,7 +247,7 @@ async function seedDatabase(): Promise<void> {
             type: 'send_message' as const,
             config: {
               message: {
-                type: 'text',
+                type: 'text' as 'text',
                 content: '{{name}}, conseguiu analisar nossa proposta? Tem alguma dúvida que posso esclarecer? 🤔'
               }
             }
@@ -241,7 +269,7 @@ async function seedDatabase(): Promise<void> {
             type: 'send_message' as const,
             config: {
               message: {
-                type: 'text',
+                type: 'text' as 'text',
                 content: 'Olá {{name}}! 🛠️\n\nVi que você está com algum problema. Nossa equipe de suporte já foi notificada e entrará em contato em breve.\n\nEnquanto isso, você pode tentar:\n1. Reiniciar o aplicativo\n2. Verificar sua conexão\n3. Atualizar para a versão mais recente'
               }
             }
@@ -271,7 +299,17 @@ async function seedDatabase(): Promise<void> {
           user_id: automationData.user_id, 
           name: automationData.name 
         },
-         defaults: { ...automationData, created_at: new Date(), updated_at: new Date() }
+        defaults: {
+          user_id: automationData.user_id,
+          name: automationData.name,
+          description: automationData.description,
+          trigger_type: automationData.trigger_type,
+          trigger_config: automationData.trigger_config,
+          actions: automationData.actions,
+          is_active: automationData.is_active,
+          created_at: new Date(),
+          updated_at: new Date()
+        }
       });
     }
 
