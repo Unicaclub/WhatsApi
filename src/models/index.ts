@@ -12,6 +12,7 @@ export interface User {
   id: number;
   email: string;
   name: string;
+  password: string;
   plan_type: string;
   api_key: string;
   created_at: Date;

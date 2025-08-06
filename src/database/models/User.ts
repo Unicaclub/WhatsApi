@@ -12,6 +12,7 @@ export class UserModel extends Model<UserInterface, UserCreationAttributes> impl
   public id!: number;
   public email!: string;
   public name!: string;
+  public password!: string;
   public plan_type!: string;
   public api_key!: string;
   public created_at!: Date;
@@ -34,6 +35,10 @@ UserModel.init(
       }
     },
     name: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    password: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
