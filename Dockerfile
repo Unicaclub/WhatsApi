@@ -1,16 +1,11 @@
+
 # Ultra-simple Railway Dockerfile
 FROM node:18
 
-# Install Chrome dependencies
-RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    freetype-dev \
-    harfbuzz \
-    ca-certificates \
-    ttf-freefont \
-    && rm -rf /var/cache/apk/*
+# Install Chrome dependencies (Debian/Ubuntu)
+RUN apt-get update && \
+    apt-get install -y chromium nss libfreetype6 libharfbuzz0b ca-certificates fonts-freefont-ttf && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
