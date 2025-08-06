@@ -194,7 +194,7 @@ export class ContactRepository {
       logger.error(`Error adding tag to contact ${id}:`, error);
       throw error;
     }
-  }
+  }  
 
   async removeTag(id: number, tag: string): Promise<Contact | null> {
     try {

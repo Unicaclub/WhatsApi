@@ -17,7 +17,7 @@ export interface User {
   api_key: string;
   created_at: Date;
   updated_at: Date;
-}
+} 
 
 export interface Automation {
   id: number;

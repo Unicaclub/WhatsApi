@@ -99,7 +99,7 @@ async function seedDatabase(): Promise<void> {
           updated_at: contactData.updated_at
         }
       });
-    }
+    } 
 
     logger.info('👥 Demo contacts created/updated');
 

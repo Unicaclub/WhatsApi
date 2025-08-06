@@ -35,7 +35,7 @@ export async function registerUser(req: Request, res: Response) {
     console.error(error);
     res.status(500).json({ message: 'Erro ao registrar usuário.' });
   }
-}
+} 
 
 // Login de usuário com validação de senha
 export async function loginUser(req: Request, res: Response) {

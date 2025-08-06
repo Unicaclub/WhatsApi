@@ -17,7 +17,7 @@ export class UserModel extends Model<UserInterface, UserCreationAttributes> impl
   public api_key!: string;
   public created_at!: Date;
   public updated_at!: Date;
-}
+} 
 
 UserModel.init(
   {
