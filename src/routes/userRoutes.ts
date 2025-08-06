@@ -1,7 +1,3 @@
-// Rota de teste POST
-userRoutes.post('/api/test', (req, res) => {
-  res.json({ success: true, message: 'POST /api/test funcionando!', body: req.body });
-});
 import { Router } from 'express';
 import { registerUser, loginUser } from '../controller/userController';
 import verifyToken from '../middleware/auth';
