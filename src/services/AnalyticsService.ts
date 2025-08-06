@@ -4,7 +4,8 @@
  */
 
 import { EventEmitter } from 'events';
-import { logger } from '../index';
+import { createLogger } from '../util/logger';
+const logger = createLogger({ level: 'info', logger: ['console'] });
 import { Analytics } from '../models';
 
 export interface MetricData {
