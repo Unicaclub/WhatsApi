@@ -1,3 +1,7 @@
+// Função utilitária para gerar IDs únicos de automação
+function generateAutomationId() {
+  return 'auto_' + Math.random().toString(36).substr(2, 9);
+}
 /*
  * Automation Controller for Zapi-like functionality
  * Handles automation creation, management, and execution

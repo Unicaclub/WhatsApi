@@ -73,7 +73,7 @@ async function seedDatabase(): Promise<void> {
           phone: contactData.phone, 
           channel: contactData.channel 
         },
-        defaults: contactData
+         defaults: { ...contactData, last_interaction: new Date(), created_at: new Date(), updated_at: new Date() }
       });
     }
 
@@ -140,7 +140,7 @@ async function seedDatabase(): Promise<void> {
           user_id: templateData.user_id, 
           name: templateData.name 
         },
-        defaults: templateData
+         defaults: { ...templateData, created_at: new Date(), updated_at: new Date() }
       });
     }
 
@@ -271,7 +271,7 @@ async function seedDatabase(): Promise<void> {
           user_id: automationData.user_id, 
           name: automationData.name 
         },
-        defaults: automationData
+         defaults: { ...automationData, created_at: new Date(), updated_at: new Date() }
       });
     }
 
