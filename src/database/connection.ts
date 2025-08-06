@@ -66,11 +66,9 @@ class DatabaseConnection {
       await this.sequelize.authenticate();
       logger.info('✅ Database connection established successfully');
       
-      // Sync models in development
-      if (process.env.NODE_ENV === 'development') {
-        await this.sequelize.sync({ alter: true });
-        logger.info('📊 Database models synchronized');
-      }
+      // Sync models em todos os ambientes (inclusive produção)
+      await this.sequelize.sync({ alter: true });
+      logger.info('📊 Database models synchronized');
     } catch (error) {
       logger.error('❌ Unable to connect to database:', error);
       throw error;
