@@ -5,13 +5,13 @@ import verifyToken from '../middleware/auth';
 
 const userRoutes = Router();
 // Registro
-userRoutes.post('/api/register', registerUser);
+userRoutes.post('/register', registerUser);
 // Login
-userRoutes.post('/api/login', loginUser);
+userRoutes.post('/login', loginUser);
 
 // Rota de teste POST
-userRoutes.post('/api/test', (req, res) => {
-  res.json({ success: true, message: 'POST /api/test funcionando!', body: req.body });
+userRoutes.post('/test', (req, res) => {
+  res.json({ success: true, message: 'POST /test funcionando!', body: req.body });
 });
 
 export default userRoutes;
