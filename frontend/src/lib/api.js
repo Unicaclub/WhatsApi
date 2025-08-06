@@ -43,8 +43,8 @@ api.interceptors.response.use(
 
 // Funções da API para autenticação
 export const authAPI = {
-  login: (email, password) => api.post('/api/login', { email, password }),
-  register: (userData) => api.post('/api/register', userData),
+  login: (email, password) => api.post('/login', { email, password }),
+  register: (userData) => api.post('/register', userData),
   getProfile: () => api.get('/api/profile'),
   updateProfile: (profileData) => api.put('/api/profile', profileData),
 };
