@@ -1,5 +1,5 @@
 # Ultra-simple Railway Dockerfile
-FROM node:18-alpine
+FROM node:18
 
 # Install Chrome dependencies
 RUN apk add --no-cache \
