@@ -1,17 +1,4 @@
-export async function sendImage(to: string, path: string, caption: string, session: string) {
-  const client = getSession(session) || await createSession(session);
-  return client.sendImage(to, path, 'image', caption);
-}
-
-export async function sendFile(to: string, path: string, filename: string, caption: string, session: string) {
-  const client = getSession(session) || await createSession(session);
-  return client.sendFile(to, path, filename, caption);
-}
-
-export async function sendImageAsSticker(to: string, path: string, session: string) {
-  const client = getSession(session) || await createSession(session);
-  return client.sendImageAsSticker(to, path);
-}
+// Removidas funções duplicadas. Todas as funções são exportadas como const async.
 // Serviço central para integração com WPPConnect
 // Cada função básica do WPPConnect exposta como método
 

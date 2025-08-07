@@ -5,7 +5,8 @@ export const sendImage = async (req: Request, res: Response) => {
     const result = await wppService.sendImage(to, path, filename, caption, session);
     res.json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const errorMsg = typeof err === 'object' && err && 'message' in err ? (err as any).message : String(err);
+    res.status(500).json({ error: errorMsg });
   }
 };
 
@@ -16,7 +17,8 @@ export const sendFile = async (req: Request, res: Response) => {
     const result = await wppService.sendFile(to, path, filename, caption, session);
     res.json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const errorMsg = typeof err === 'object' && err && 'message' in err ? (err as any).message : String(err);
+    res.status(500).json({ error: errorMsg });
   }
 };
 
@@ -27,7 +29,8 @@ export const sendImageAsSticker = async (req: Request, res: Response) => {
     const result = await wppService.sendImageAsSticker(to, path, session);
     res.json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const errorMsg = typeof err === 'object' && err && 'message' in err ? (err as any).message : String(err);
+    res.status(500).json({ error: errorMsg });
   }
 };
 import * as wppSessionService from '../services/wppSessionService';
@@ -63,7 +66,8 @@ export const sendText = async (req: Request, res: Response) => {
     const result = await wppService.sendText(to, message, session);
     res.json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const errorMsg = typeof err === 'object' && err && 'message' in err ? (err as any).message : String(err);
+    res.status(500).json({ error: errorMsg });
   }
 };
 
@@ -74,7 +78,8 @@ export const sendContactVcard = async (req: Request, res: Response) => {
     const result = await wppService.sendContactVcard(to, contactId, name, session);
     res.json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const errorMsg = typeof err === 'object' && err && 'message' in err ? (err as any).message : String(err);
+    res.status(500).json({ error: errorMsg });
   }
 };
 
@@ -85,7 +90,8 @@ export const sendContactVcardList = async (req: Request, res: Response) => {
     const result = await wppService.sendContactVcardList(to, contacts, session);
     res.json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const errorMsg = typeof err === 'object' && err && 'message' in err ? (err as any).message : String(err);
+    res.status(500).json({ error: errorMsg });
   }
 };
 
@@ -96,7 +102,8 @@ export const sendLocation = async (req: Request, res: Response) => {
     const result = await wppService.sendLocation(to, lat, lng, title, session);
     res.json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const errorMsg = typeof err === 'object' && err && 'message' in err ? (err as any).message : String(err);
+    res.status(500).json({ error: errorMsg });
   }
 };
 
@@ -107,7 +114,8 @@ export const sendLinkPreview = async (req: Request, res: Response) => {
     const result = await wppService.sendLinkPreview(to, url, caption, session);
     res.json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const errorMsg = typeof err === 'object' && err && 'message' in err ? (err as any).message : String(err);
+    res.status(500).json({ error: errorMsg });
   }
 };
 

@@ -1,11 +1,13 @@
-router.post('/send-image', wppController.sendImage);
-router.post('/send-file', wppController.sendFile);
-router.post('/send-sticker', wppController.sendImageAsSticker);
-// Rotas REST para expor as funções do WPPConnect
+
 import { Router } from 'express';
 import * as wppController from '../controller/wppController';
 
 const router = Router();
+
+// Rotas REST para expor as funções do WPPConnect
+router.post('/send-image', wppController.sendImage);
+router.post('/send-file', wppController.sendFile);
+router.post('/send-sticker', wppController.sendImageAsSticker);
 
 router.post('/send-text', wppController.sendText);
 router.post('/send-contact-vcard', wppController.sendContactVcard);
