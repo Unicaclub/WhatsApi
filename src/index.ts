@@ -90,7 +90,6 @@ export function initServer(serverOptions: Partial<ServerOptions>): {
     origin: [
       'http://localhost:3000',
       'http://localhost:5173',
-      'https://whatsapi-production-5e4e.up.railway.app', // Frontend Railway URL
       'https://whatsapi-production-5412.up.railway.app'  // Backend Railway URL (for self-calls)
     ],
     credentials: true,

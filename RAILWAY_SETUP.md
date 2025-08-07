@@ -15,7 +15,7 @@ SECRET_KEY=Mestre888
 DATABASE_URL=postgresql://username:password@host:port/database
 
 # CORS e URLs
-FRONTEND_URL=https://whatsapi-production-5e4e.up.railway.app
+<!-- FRONTEND_URL removido: não há mais frontend -->
 BACKEND_URL=https://whatsapi-production-5412.up.railway.app
 
 # Upload e Storage
@@ -35,7 +35,7 @@ LOG_FILE=./log/app.log
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ```
 
-### 2. Frontend (whatsapi-production-5e4e.up.railway.app)
+<!-- Seção de Frontend removida: não há mais frontend -->
 
 #### Variáveis de Ambiente necessárias:
 
@@ -72,7 +72,7 @@ curl https://whatsapi-production-5412.up.railway.app/health
 ### 5. Troubleshooting Railway:
 
 1. **Database Connection Issues**: Certifique-se que DATABASE_URL está definida
-2. **CORS Issues**: Verifique se FRONTEND_URL está nos Origins permitidos
+2. **CORS Issues**: Certifique-se de que apenas os origins necessários estão permitidos
 3. **Build Issues**: Use `npm run build` antes do deploy
 4. **Port Issues**: Railway define PORT automaticamente
 5. **Puppeteer Issues**: Use PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
