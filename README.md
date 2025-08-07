@@ -321,3 +321,30 @@ See the `routes` file for all the routes. [here](/src/routes/index.js) and HTTP 
 # Swagger UI
 
 Swagger ui can be found at `/api-docs`
+
+## Rotas REST WPPConnect (Funções Básicas)
+
+A API expõe as principais funções do WPPConnect via rotas HTTP POST:
+
+- `/wpp/send-text` — Envia mensagem de texto
+  - **Body:** `{ "to": "5511999999999@c.us", "message": "Olá!" }`
+- `/wpp/send-contact-vcard` — Envia contato vCard
+  - **Body:** `{ "to": "5511999999999@c.us", "contactId": "5511888888888@c.us", "name": "Contato Exemplo" }`
+- `/wpp/send-contact-vcard-list` — Envia lista de contatos vCard
+  - **Body:** `{ "to": "5511999999999@c.us", "contacts": ["5511888888888@c.us", "5511777777777@c.us"] }`
+- `/wpp/send-location` — Envia localização
+  - **Body:** `{ "to": "5511999999999@c.us", "lat": "-23.5", "lng": "-46.6", "title": "São Paulo" }`
+- `/wpp/send-link-preview` — Envia link com preview
+  - **Body:** `{ "to": "5511999999999@c.us", "url": "https://site.com", "caption": "Veja isso!" }`
+
+> Consulte a documentação WPPConnect para payloads de outras funções.
+
+**Exemplo de requisição:**
+
+```bash
+curl -X POST http://localhost:PORT/wpp/send-text \
+  -H "Content-Type: application/json" \
+  -d '{ "to": "5511999999999@c.us", "message": "Olá!" }'
+```
+
+**Todas as rotas retornam o resultado da operação do WPPConnect.**
