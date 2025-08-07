@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+// import { Link, useNavigate } from 'react-router-dom';
+// import { useAuth } from '../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,8 +21,7 @@ const Register = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { register } = useAuth();
-  const navigate = useNavigate();
+  // Cadastro desabilitado no modo público
 
   const handleChange = (e) => {
     setFormData({
@@ -44,30 +43,10 @@ const Register = () => {
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  // Função de submit desabilitada
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    if (!validateForm()) {
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const { confirmPassword, ...userData } = formData;
-      const result = await register(userData);
-      
-      if (result.success) {
-        navigate('/');
-      } else {
-        setError(result.error);
-      }
-    } catch (err) {
-      setError('Erro inesperado. Tente novamente.');
-    } finally {
-      setLoading(false);
-    }
+    setError('Cadastro desabilitado no modo público.');
   };
 
   return (
@@ -79,19 +58,12 @@ const Register = () => {
               <MessageCircle className="h-8 w-8 text-green-600" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">Criar Conta</CardTitle>
-          <CardDescription>
-            Cadastre-se para começar a usar o WhatsAPI
-          </CardDescription>
+          <CardTitle className="text-2xl font-bold">Cadastro</CardTitle>
+          <CardDescription>O cadastro está desabilitado no modo público.</CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-            
+      </Card>
+    </div>
+  );
             <div className="space-y-2">
               <Label htmlFor="name">Nome Completo</Label>
               <div className="relative">
@@ -201,29 +173,7 @@ const Register = () => {
 
             <Button 
               type="submit" 
-              className="w-full bg-green-600 hover:bg-green-700"
+// --- Código antigo removido: página apenas informativa no modo público ---
               disabled={loading}
+
             >
-              {loading ? 'Criando conta...' : 'Criar Conta'}
-            </Button>
-          </form>
-
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              Já tem uma conta?{' '}
-              <Link 
-                to="/login" 
-                className="text-green-600 hover:text-green-700 font-medium"
-              >
-                Faça login
-              </Link>
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
-
-export default Register;
-

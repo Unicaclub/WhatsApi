@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+// import { useNavigate } from 'react-router-dom';
+// import { useAuth } from '../contexts/AuthContext';
 import Layout from '../components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,12 +16,22 @@ import {
 } from 'lucide-react';
 
 const Profile = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
 
-  const handleEditProfile = () => {
-    navigate('/profile/edit');
+  // Dados fictícios para exibição pública
+  const user = {
+    name: 'Usuário Público',
+    email: 'publico@exemplo.com',
+    phone: '(00) 00000-0000',
+    avatar: '',
+    createdAt: new Date().toISOString(),
+    stats: {
+      totalMessages: 0,
+      totalContacts: 0,
+      daysActive: 0
+    }
   };
+
+  // Removido handleEditProfile e navegação
 
   const getInitials = (name) => {
     if (!name) return 'U';
@@ -65,10 +75,8 @@ const Profile = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button 
-                  onClick={handleEditProfile}
-                  className="w-full bg-green-600 hover:bg-green-700"
-                >
+                {/* Botão de editar removido pois não há autenticação */}
+                <Button disabled className="w-full bg-gray-300 cursor-not-allowed">
                   <Edit className="h-4 w-4 mr-2" />
                   Editar Perfil
                 </Button>
